@@ -1,0 +1,87 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(135deg, #4a00e0, #8e2de2);
+  color: white;
+  text-align: center;
+  padding: 2rem 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+header p {
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+main {
+  flex: 1;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.topics {
+  list-style: none;
+  padding: 0;
+}
+
+.topics li {
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.topics li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.topics a {
+  display: block;
+  background-color: white;
+  padding: 1.2rem 1.5rem;
+  text-decoration: none;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-left: 4px solid #4a00e0;
+  transition: background-color 0.2s;
+}
+
+.topics a:hover {
+  background-color: #f0f0ff;
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #333;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 2rem;
+  }
+  main {
+    padding: 0.5rem;
+  }
+}
