@@ -14,8 +14,8 @@ function sizeCanvas(gl, canvas){
     const size = dpr * 500
     canvas.width = size
     canvas.height = size
-    canvas.style.width = "500px"
-    canvas.style.height = "500px"
+    canvas.style.width = `500px`
+    canvas.style.height = `500px`
     gl.viewport(0, 0, size, size)
 }
 
