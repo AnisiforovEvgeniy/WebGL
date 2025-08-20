@@ -81,6 +81,8 @@ gl.useProgram(program)
 gl.drawArrays(gl.TRIANGLES, 0, 54)
 
 const instance = new Float32Array([
+  0, 0, 0,
+
   -1.2, -1, 0,
   1.2, -1, 0,
 
@@ -137,4 +139,4 @@ gl.enableVertexAttribArray(aOffsetLocation)
 gl.vertexAttribPointer(aOffsetLocation, 3, gl.FLOAT, false, 0, 0)
 gl.vertexAttribDivisor(aOffsetLocation, 1) // Обновляем каждый instance 
 
-gl.drawArraysInstanced(gl.TRIANGLES, 0, 18, 36); // 18 вершин на 36 instance 
+gl.drawArraysInstanced(gl.TRIANGLES, 0, 18, 37); // 18 вершин на 36 instance 
