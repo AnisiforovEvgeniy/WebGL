@@ -78,7 +78,6 @@ gl.vertexAttribPointer(aPositionLocation, 3, gl.FLOAT, false, 0, 0)
 
 sizeCanvas(gl, canvas)
 gl.useProgram(program)
-gl.drawArrays(gl.TRIANGLES, 0, 54)
 
 const instance = new Float32Array([
   0, 0, 0,
