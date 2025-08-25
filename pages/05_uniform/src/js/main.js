@@ -11,7 +11,7 @@ if(!gl){
 }
 
 function sizeCanvas(gl, canvas){
-    const dpr = window.devicePixelRatio || 1
+    const dpr = Math.min(window.devicePixelRatio, 2)
     const size = dpr * 800
     canvas.width = size
     canvas.height = size
@@ -91,4 +91,16 @@ function animate(currentTime) {
     requestAnimationFrame(animate);
 }
 sizeCanvas(gl, canvas)
-requestAnimationFrame(animate);
+// requestAnimationFrame(animate);
+
+function warmUp() {
+    gl.useProgram(program);
+    gl.uniformMatrix4fv(modelMatrixLocation, false, mat4.create()); 
+    gl.uniform1f(positionXLocation, 0);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    setTimeout(() => {
+        requestAnimationFrame(animate);
+    }, 16)
+}
+warmUp();
