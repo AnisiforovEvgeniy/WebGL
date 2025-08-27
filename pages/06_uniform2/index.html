@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./src/style.css"/>
+    <title>WebGL uniform</title>
+</head>
+<body>
+    <div class="container_canvas">
+        <div class="input-group">
+            <label for="colorInput">Выбор цвета</label>
+            <input id="colorInput" type="color" value="#ff6347" />
+        </div>
+
+        <div class="input-group">
+            <label for="rangeInput">Выбор прозрачности</label>
+            <input id="rangeInput" type="range" min="0" max="100" value="100" />
+        </div>
+
+        <button id="downloadBtn">Скачать как PNG</button>
+        <canvas id="canvas"></canvas>
+    </div>
+    <script type="module" src="./src/js/main.js"></script>
+</body>
+</html>
