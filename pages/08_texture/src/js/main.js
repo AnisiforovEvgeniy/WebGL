@@ -1,12 +1,13 @@
 import { mat4 } from 'gl-matrix'
 import { vertexShaderSource } from "../shaders/vertexShader.js"
 import { fragmentShaderSource } from "../shaders/fragmentShader.js"
-import img1 from "../textures/img1.jpg"
-import img2 from "../textures/img2.jpg"
-import img3 from "../textures/img3.webp"
-import img4 from "../textures/img4.jpg"
-import img5 from "../textures/img5.webp"
-import img6 from "../textures/img1.jpg"
+
+import img1 from "../textures/mem/img3.jpg"
+import img2 from "../textures/mem/img3.jpg"
+import img3 from "../textures/mem/img3.jpg"
+import img4 from "../textures/mem/img3.jpg"
+import img5 from "../textures/mem/img3.jpg"
+import img6 from "../textures/mem/img3.jpg"
 
 const canvas = document.getElementById('canvas')
 const gl = canvas.getContext('webgl2', {
