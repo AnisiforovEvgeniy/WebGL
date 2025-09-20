@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "gl-matrix": "^3.4.4",
+    "vite": "^7.1.4"
+  },
+  "name": "09_diffuse-light",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {},
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --emptyOutDir",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": ""
+}

@@ -1,0 +1,35 @@
+export function sizeCanvas(gl, canvas){
+    const rect = canvas.getBoundingClientRect()
+    const dpr = devicePixelRatio 
+    const size = dpr * rect.width
+    canvas.width = size
+    canvas.height = size
+    gl.viewport(0, 0, size, size)
+}
+
+export function createShader(gl, source, type){
+    const shader = gl.createShader(type)
+    gl.shaderSource(shader, source)
+    gl.compileShader(shader)
+
+    if(!gl.getShaderParameter(shader, gl.COMPILE_STATUS)){
+        console.error(gl.getShaderInfoLog(shader))
+        return null
+    }
+
+    return shader
+}
+
+export function createProgram(gl, vertexShader, fragmentShader){
+    const program = gl.createProgram()
+    gl.attachShader(program, vertexShader)
+    gl.attachShader(program, fragmentShader)
+    gl.linkProgram(program)
+
+    if(!gl.getProgramParameter(program, gl.LINK_STATUS)){
+        console.error(gl.getProgramInfoLog(program))
+        return null
+    }
+
+    return program
+}
