@@ -120,7 +120,7 @@ mat4.multiply(MVPCylinder, viewProjMatrix, modelMatrixCylinder)
 
 
 // Куб
-gl.uniformMatrix4fv(uMatrixLocation, false, MVPCube); // Передаём матрицу в шейдер
+gl.uniformMatrix4fv(uMatrixLocation, false, MVPCube);
 gl.uniform4f(uColorLocation, 1, 0.5, 0.7, 1)
 gl.bindVertexArray(vaoCube)
 gl.drawArrays(gl.TRIANGLES, 0, positionCube.length / 3)
