@@ -132,7 +132,7 @@ gl.drawArrays(gl.LINES, 0, positionCubeLine.length / 3)
 
 // Цилиндр 
 gl.uniformMatrix4fv(uMatrixLocation, false, MVPCylinder)
-gl.uniform4f(uColorLocation, 0, 0, 1, 1)
+gl.uniform4f(uColorLocation, 0.4, 0.7, 1, 1)
 gl.bindVertexArray(vaoCylinder)
 gl.drawArrays(gl.TRIANGLES, 0, positionCylinder.length / 3)
 
