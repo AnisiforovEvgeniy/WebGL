@@ -1,7 +1,7 @@
 import { mat4 } from 'gl-matrix'
 import { vertexShaderSource } from "../shaders/vertex.js";
 import { fragmentShaderSource } from "../shaders/fragment.js";
-import { sizeCanvas, createShader, createProgram } from "./utils.js"
+import { sizeCanvas, createShader, createProgram, createVAO } from "./utils.js"
 import { positionCube, positionCubeLine, positionPyramid, positionPyramidLine, positionCylinder, positionCylinderLine } from "./GeometryData.js"
 
 const canvas = document.getElementById('canvas')
@@ -44,47 +44,12 @@ gl.bufferData(gl.ARRAY_BUFFER, positionCylinderLine, gl.STATIC_DRAW)
 const aPositionLocation = gl.getAttribLocation(program, 'aPosition')
 
 // VAO(Vertex Array Object) //
-const vaoCube = gl.createVertexArray()
-gl.bindVertexArray(vaoCube)
-gl.bindBuffer(gl.ARRAY_BUFFER, positionCubeBuffer)
-gl.vertexAttribPointer(aPositionLocation, 3, gl.FLOAT, false, 0, 0)
-gl.enableVertexAttribArray(aPositionLocation)
-gl.bindVertexArray(null) // запечатали vao
-
-const vaoLine = gl.createVertexArray()
-gl.bindVertexArray(vaoLine)
-gl.bindBuffer(gl.ARRAY_BUFFER, positionCubeLineBuffer)
-gl.vertexAttribPointer(aPositionLocation, 3, gl.FLOAT, false, 0, 0)
-gl.enableVertexAttribArray(aPositionLocation)
-gl.bindVertexArray(null)
-
-const vaoPyramid = gl.createVertexArray()
-gl.bindVertexArray(vaoPyramid)
-gl.bindBuffer(gl.ARRAY_BUFFER, positionPyramidBuffer)
-gl.vertexAttribPointer(aPositionLocation, 3, gl.FLOAT, false, 0, 0)
-gl.enableVertexAttribArray(aPositionLocation)
-gl.bindVertexArray(null)
-
-const vaoPyramidLine = gl.createVertexArray()
-gl.bindVertexArray(vaoPyramidLine)
-gl.bindBuffer(gl.ARRAY_BUFFER, positionPyramidLineBuffer)
-gl.vertexAttribPointer(aPositionLocation, 3, gl.FLOAT, false, 0, 0)
-gl.enableVertexAttribArray(aPositionLocation)
-gl.bindVertexArray(null)
-
-const vaoCylinder = gl.createVertexArray()
-gl.bindVertexArray(vaoCylinder)
-gl.bindBuffer(gl.ARRAY_BUFFER, positionCylinderBuffer)
-gl.vertexAttribPointer(aPositionLocation, 3, gl.FLOAT, false, 0, 0)
-gl.enableVertexAttribArray(aPositionLocation)
-gl.bindVertexArray(null)
-
-const vaoCylinderLine = gl.createVertexArray()
-gl.bindVertexArray(vaoCylinderLine)
-gl.bindBuffer(gl.ARRAY_BUFFER, positionCylinderLineBuffer)
-gl.vertexAttribPointer(aPositionLocation, 3, gl.FLOAT, false, 0, 0)
-gl.enableVertexAttribArray(aPositionLocation)
-gl.bindVertexArray(null)
+const vaoCube = createVAO(gl, positionCubeBuffer, aPositionLocation)
+const vaoCubeLine = createVAO(gl, positionCubeLineBuffer, aPositionLocation)
+const vaoPyramid = createVAO(gl, positionPyramidBuffer, aPositionLocation)
+const vaoPyramidLine = createVAO(gl, positionPyramidLineBuffer, aPositionLocation)
+const vaoCylinder = createVAO(gl, positionCylinderBuffer, aPositionLocation)
+const vaoCylinderLine = createVAO(gl, positionCylinderLineBuffer, aPositionLocation)
 
 // UNIFORMS // 
 const uColorLocation = gl.getUniformLocation(program, "uColor")
@@ -127,7 +92,7 @@ gl.drawArrays(gl.TRIANGLES, 0, positionCube.length / 3)
 
 // Линии куба
 gl.uniform4f(uColorLocation, 0, 0, 0, 1)
-gl.bindVertexArray(vaoLine)
+gl.bindVertexArray(vaoCubeLine)
 gl.drawArrays(gl.LINES, 0, positionCubeLine.length / 3)
 
 // Цилиндр 

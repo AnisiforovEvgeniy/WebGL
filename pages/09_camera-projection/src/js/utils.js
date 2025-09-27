@@ -33,3 +33,13 @@ export function createProgram(gl, vertexShader, fragmentShader){
 
     return program
 }
+
+export function createVAO(gl, buffer, location){
+    const vao = gl.createVertexArray()
+    gl.bindVertexArray(vao)
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+    gl.vertexAttribPointer(location, 3, gl.FLOAT, false, 0, 0)
+    gl.enableVertexAttribArray(location)
+    gl.bindVertexArray(null)
+    return vao
+}
