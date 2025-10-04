@@ -3,7 +3,7 @@
     "gl-matrix": "^3.4.4",
     "vite": "^7.1.4"
   },
-  "name": "09_camera-projection",
+  "name": "10_rotation-camera",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
