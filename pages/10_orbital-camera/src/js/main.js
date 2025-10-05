@@ -3,6 +3,7 @@ import { vertexShaderSource } from "../shaders/vertexShader";
 import { fragmentShaderSource } from "../shaders/fragmentShader";
 import { createProgram, createShader, createVAO, sizeCanvas } from './utils';
 import { parallelepiped, parallelepipedLine, triangles, trianglesLine } from './geometryData';
+import { setupOrbitControls } from './Camera.js';
 
 const canvas = document.getElementById('canvas');
 const gl = canvas.getContext('webgl2');
@@ -50,65 +51,26 @@ const projectionMatrix = mat4.create();
 const viewMatrix = mat4.create();
 const projectionViewMatrix = mat4.create();
 
-let cameraRadius = 3.5;             // расстояние до центра
-let horizontalAngle = Math.PI / 2;  // начальный горизонтальный угол (смотрим с +Z)
-let verticalAngle = 0.4;            // начальный вертикальный угол
+const initialCamera = {
+    cameraRadius: 3.5,
+    horizontalAngle: Math.PI / 2,
+    verticalAngle: 0.4
+};
 
-let isDragging = false;
-let lastX = 0;
-let lastY = 0;
-
-// Обработчики мышки
-canvas.addEventListener('mousedown', (e) => {
-    if (e.button === 0) { 
-        isDragging = true;
-        lastX = e.clientX;
-        lastY = e.clientY;
-
-        canvas.style.cursor = 'grabbing';
-    }
-});
-
-window.addEventListener('mouseup', () => {
-    isDragging = false;
-    canvas.style.cursor = 'grab';
-});
-
-canvas.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-
-    const deltaX = e.clientX - lastX;
-    const deltaY = e.clientY - lastY;
-
-    const sensitivity = 0.007;
-    horizontalAngle -= deltaX * sensitivity;
-    verticalAngle -= deltaY * sensitivity;
-
-    // Ограничение verticalAngle
-    verticalAngle = Math.max(-Math.PI / 2 + 0.01, Math.min(Math.PI / 2 - 0.01, verticalAngle));
-
-    lastX = e.clientX;
-    lastY = e.clientY;
-
-    updateCamera();
+setupOrbitControls(canvas, initialCamera, (cameraParams) => {
+    updateCamera(cameraParams);
     render();
 });
 
-function updateCamera() {
+function updateCamera({ cameraRadius, horizontalAngle, verticalAngle }) {
     const x = cameraRadius * Math.cos(verticalAngle) * Math.cos(horizontalAngle);
     const y = cameraRadius * Math.sin(verticalAngle);
     const z = cameraRadius * Math.cos(verticalAngle) * Math.sin(horizontalAngle);
 
-    mat4.lookAt(
-        viewMatrix, // куда передаем 
-        [x, y, z], // где находит камера
-        [0, 0, 0], // смотрим в центр
-        [0, 1, 0] // направление вверх y
-    );
+    mat4.lookAt(viewMatrix, [x, y, z], [0, 0, 0], [0, 1, 0]);
     mat4.perspective(projectionMatrix, 45 * Math.PI / 180, canvas.width / canvas.height, 0.1, 100.0);
     mat4.multiply(projectionViewMatrix, projectionMatrix, viewMatrix);
 }
-
 
 function render() {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -144,5 +106,5 @@ function render() {
 }
 
 sizeCanvas(gl, canvas);
-updateCamera();
+updateCamera(initialCamera);
 render();
