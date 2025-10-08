@@ -1,21 +1,38 @@
 export function setupOrbitControls(canvas, { cameraRadius, horizontalAngle, verticalAngle }, onUpdate) {
     const sensitivity = 0.007;
+    const zoomSensitivity = 0.2;
     let isDragging = false;
     let lastX = 0;
     let lastY = 0;
 
+    let currentRadius = cameraRadius;
+    let currentHorizontalAngle = horizontalAngle;
+    let currentVerticalAngle = verticalAngle;
+
     function handleDragMove(deltaX, deltaY) {
-        horizontalAngle -= deltaX * sensitivity;
-        verticalAngle -= deltaY * sensitivity;
+        currentHorizontalAngle -= deltaX * sensitivity;
+        currentVerticalAngle -= deltaY * sensitivity;
 
         // Ограничение вертикального угла
-        verticalAngle = Math.max(-Math.PI / 2 + 0.01, Math.min(Math.PI / 2 - 0.01, verticalAngle));
+        currentVerticalAngle = Math.max(-Math.PI / 2 + 0.01, Math.min(Math.PI / 2 - 0.01, currentVerticalAngle));
 
-        // Передаём текущие параметры наружу
         onUpdate({
-            cameraRadius,
-            horizontalAngle,
-            verticalAngle
+            cameraRadius: currentRadius,
+            horizontalAngle: currentHorizontalAngle,
+            verticalAngle: currentVerticalAngle
+        });
+    }
+
+    function handleZoom(deltaY) {
+        const zoomFactor = deltaY > 0 ? 1 + zoomSensitivity : 1 - zoomSensitivity;
+        currentRadius *= zoomFactor;
+
+        currentRadius = Math.max(1.5, Math.min(15, currentRadius));
+
+        onUpdate({
+            cameraRadius: currentRadius,
+            horizontalAngle: currentHorizontalAngle,
+            verticalAngle: currentVerticalAngle
         });
     }
 
@@ -26,7 +43,6 @@ export function setupOrbitControls(canvas, { cameraRadius, horizontalAngle, vert
         }
     }
 
-    // Мышка
     canvas.addEventListener('mousedown', (e) => {
         if (e.button === 0) {
             isDragging = true;
@@ -47,7 +63,11 @@ export function setupOrbitControls(canvas, { cameraRadius, horizontalAngle, vert
         handleDragMove(deltaX, deltaY);
     });
 
-    // Прикосновение
+    canvas.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        handleZoom(e.deltaY);
+    });
+
     canvas.addEventListener('touchstart', (e) => {
         if (e.touches.length === 1) {
             isDragging = true;
